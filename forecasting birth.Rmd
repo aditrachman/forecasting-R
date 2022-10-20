@@ -1,0 +1,42 @@
+---
+title: "tesss"
+author: "aditrachman.github.io"
+date: '2022-10-20'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+kelahiran <- scan("http://robjhyndman.com/tsdldata/data/nybirths.dat")
+waktukelahiran <- ts(kelahiran, frequency=12, start=c(1946,1))
+plot.ts(waktukelahiran)
+#birthstimeseries - waktukelahiran
+
+
+
+```
+
+```{r}
+
+## we may need to transform the time series in order to get a transformed time series that can be described using an additive model. For example, we can transform the time series by calculating the natural log of the original data:
+
+kelahirandata <- log(waktukelahiran)
+plot.ts(kelahirandata)
+
+```
+
+```{r}
+library("TTR")
+kelahirandeh <- decompose(waktukelahiran)
+plot(kelahirandeh)
+
+
+kelahirandeh <- decompose(waktukelahiran)
+plotwaktukelahiran <- waktukelahiran - kelahirandeh$seasonal
+plot(plotwaktukelahiran)
+```
+
+
